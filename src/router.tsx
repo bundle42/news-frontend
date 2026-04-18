@@ -6,6 +6,8 @@ import AdminPage from "./pages/AdminPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRoute from "./components/AdminRoute";
 import AppLayout from "./AppLayout";
+import HomePage from "./pages/HomePage";
+import PredictPage from "./pages/PredictPage";
 
 const router = createBrowserRouter([
   {
@@ -14,12 +16,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: (
-          <div>
-            <h2>Home</h2>
-            <p>주가 예측 웹사이트에 오신 것을 환영합니다!</p>
-          </div>
-        ),
+        element: <HomePage />,
       },
       {
         path: "login",
@@ -38,6 +35,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <BoardDetailPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "predict",
+        element: (
+          <ProtectedRoute>
+            <PredictPage />
           </ProtectedRoute>
         ),
       },

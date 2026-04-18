@@ -19,57 +19,67 @@ function AdminPage() {
     if (!confirmDelete) return;
 
     await deleteMember(id);
-    fetchMembers(); // 삭제 후 새로고침
+    fetchMembers();
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>관리자 - 회원 목록</h1>
+    <div className="min-h-screen bg-gray-100 p-6">
+      {/* Header */}
+      <div className="max-w-6xl mx-auto mb-6">
+        <h1 className="text-2xl font-bold">관리자 대시보드</h1>
+        <p className="text-gray-500 text-sm mt-1">
+          회원 목록을 관리할 수 있습니다
+        </p>
+      </div>
 
-      <table
-        style={{ width: "100%", borderCollapse: "collapse", marginTop: "20px" }}
-      >
-        <thead>
-          <tr style={{ background: "#f5f5f5" }}>
-            <th style={th}>ID</th>
-            <th style={th}>Email</th>
-            <th style={th}>Name</th>
-            <th style={th}>Password</th>
-            <th style={th}>Role</th>
-            <th style={th}>Action</th>
-          </tr>
-        </thead>
+      {/* Table Card */}
+      <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow overflow-hidden">
+        <div className="p-4 border-b flex justify-between items-center">
+          <span className="font-semibold">전체 회원: {members.length}명</span>
+        </div>
 
-        <tbody>
-          {members.map((m) => (
-            <tr key={m.id}>
-              <td style={td}>{m.id}</td>
-              <td style={td}>{m.memberEmail}</td>
-              <td style={td}>{m.memberName}</td>
-              <td style={td}>{m.memberPassword}</td>
-              <td style={td}>{m.memberRole}</td>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm text-center">
+            <thead className="bg-gray-50 text-gray-600">
+              <tr>
+                <th className="p-3">ID</th>
+                <th className="p-3">Email</th>
+                <th className="p-3">Name</th>
+                <th className="p-3">Password</th>
+                <th className="p-3">Role</th>
+                <th className="p-3">Action</th>
+              </tr>
+            </thead>
 
-              <td style={td}>
-                <button onClick={() => handleDelete(m.id)}>삭제</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+            <tbody>
+              {members.map((m) => (
+                <tr key={m.id} className="border-t hover:bg-gray-50 transition">
+                  <td className="p-3">{m.id}</td>
+                  <td className="p-3">{m.memberEmail}</td>
+                  <td className="p-3">{m.memberName}</td>
+                  <td className="p-3 text-gray-400">••••••••</td>
+                  <td className="p-3">
+                    <span className="px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-600">
+                      {m.memberRole}
+                    </span>
+                  </td>
+
+                  <td className="p-3">
+                    <button
+                      onClick={() => handleDelete(m.id)}
+                      className="px-3 py-1 text-sm bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+                    >
+                      삭제
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 }
-
-const th: React.CSSProperties = {
-  border: "1px solid #ddd",
-  padding: "10px",
-  textAlign: "center",
-};
-
-const td: React.CSSProperties = {
-  border: "1px solid #ddd",
-  padding: "10px",
-  textAlign: "center",
-};
 
 export default AdminPage;
