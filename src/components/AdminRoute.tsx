@@ -11,8 +11,11 @@ export default function AdminRoute({
 
   if (loading) return <div>로딩중...</div>;
 
-  if (!user || user.memberRole !== "ROLE_ADMIN") {
-    return (alert("관리자만 접근 가능합니다."), (<Navigate to="/" replace />));
+  if (!user) return <Navigate to="/" replace />;
+
+  if (user.memberRole !== "ROLE_ADMIN") {
+    alert("관리자만 접근 가능합니다.");
+    return <Navigate to="/" replace />;
   }
 
   return <>{children}</>;

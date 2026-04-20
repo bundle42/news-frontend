@@ -7,12 +7,12 @@ function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { refreshUser } = useAuth();
+  const { initAuth } = useAuth();
 
   const handleLogin = async () => {
     try {
       await login(email, password);
-      await refreshUser();
+      await initAuth();
       navigate("/board");
     } catch (e) {
       alert("로그인 실패");

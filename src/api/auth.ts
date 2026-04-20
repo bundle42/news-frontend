@@ -2,25 +2,27 @@ import client from "./client";
 import type { Member } from "../types/member";
 
 export const login = async (email: string, password: string) => {
-  const params = new URLSearchParams();
-  params.append("username", email);
-  params.append("password", password);
-
-  return client.post("/member/login", params, {
-    withCredentials: true,
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
+  return client.post(
+    "/api/member/login",
+    {
+      username: email,
+      password: password,
     },
-  });
+    {
+      withCredentials: true,
+    },
+  );
 };
 
 export const getMe = async (): Promise<Member> => {
-  const res = await client.get<Member>("/api/member/me");
+  const res = await client.get<Member>("/api/member/me", {
+    withCredentials: true,
+  });
   return res.data;
 };
 
 export const logout = async () => {
-  await client.post("/member/logout", null, {
+  await client.post("/api/member/logout", null, {
     withCredentials: true,
   });
 };

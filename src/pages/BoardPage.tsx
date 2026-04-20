@@ -9,7 +9,6 @@ function BoardPage() {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
-  const API_URL = import.meta.env.VITE_API_URL;
 
   const stockLogos: Record<string, string> = {
     삼성전자: "/logos/samsung.png",
@@ -72,7 +71,7 @@ function BoardPage() {
 
           <button
             className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
-            onClick={() => (window.location.href = `${API_URL}/board/save`)}
+            onClick={() => navigate("/board/write")}
           >
             글쓰기
           </button>

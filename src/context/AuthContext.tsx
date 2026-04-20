@@ -5,9 +5,8 @@ import type { Member } from "../types/member";
 type AuthContextType = {
   user: Member | null;
   loading: boolean;
-  loginCheck: () => Promise<void>;
+  initAuth: () => Promise<void>;
   logout: () => Promise<void>;
-  refreshUser: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -16,39 +15,29 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<Member | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const loginCheck = async () => {
+  const initAuth = async () => {
     try {
       const me = await getMe();
       setUser(me);
-    } catch (e) {
+    } catch {
       setUser(null);
     } finally {
       setLoading(false);
     }
   };
 
-  const refreshUser = async () => {
-    try {
-      const me = await getMe();
-      setUser(me);
-    } catch {
-      setUser(null);
-    }
-  };
-
   const logout = async () => {
     await apiLogout();
     setUser(null);
+    setLoading(false);
   };
 
   useEffect(() => {
-    loginCheck();
+    initAuth(); // 앱 시작
   }, []);
 
   return (
-    <AuthContext.Provider
-      value={{ user, loading, loginCheck, logout, refreshUser }}
-    >
+    <AuthContext.Provider value={{ user, loading, initAuth, logout }}>
       {children}
     </AuthContext.Provider>
   );

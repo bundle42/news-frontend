@@ -8,6 +8,7 @@ import AdminRoute from "./components/AdminRoute";
 import AppLayout from "./AppLayout";
 import HomePage from "./pages/HomePage";
 import PredictPage from "./pages/PredictPage";
+import BoardWritePage from "./pages/BoardWritePage";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <BoardPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "board/write",
+        element: (
+          <ProtectedRoute>
+            <BoardWritePage />
           </ProtectedRoute>
         ),
       },
