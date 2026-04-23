@@ -28,7 +28,7 @@ export default function Navigation() {
           onClick={() => navigate("/admin/members")}
           className="hover:text-blue-600"
         >
-          회원 목록
+          관리자 권한
         </button>
       </div>
     </nav>

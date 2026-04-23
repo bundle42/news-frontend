@@ -26,9 +26,6 @@ function BoardWritePage() {
 
       await client.post("/api/board/save", formData, {
         withCredentials: true,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
       });
 
       alert("글 작성 완료!");

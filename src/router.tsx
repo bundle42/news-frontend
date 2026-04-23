@@ -9,6 +9,10 @@ import AppLayout from "./AppLayout";
 import HomePage from "./pages/HomePage";
 import PredictPage from "./pages/PredictPage";
 import BoardWritePage from "./pages/BoardWritePage";
+import SignupPage from "./pages/SignupPage";
+import UpdateProfilePage from "./pages/UpdateProfilePage";
+import MyBoardPage from "./pages/MyBoardPage";
+import BoardUpdatePage from "./pages/BoardUpdatePage";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +26,18 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <LoginPage />,
+      },
+      {
+        path: "signup",
+        element: <SignupPage />,
+      },
+      {
+        path: "update-profile",
+        element: (
+          <ProtectedRoute>
+            <UpdateProfilePage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "board",
@@ -44,6 +60,22 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <BoardDetailPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "board/update/:id",
+        element: (
+          <ProtectedRoute>
+            <BoardUpdatePage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "my-boards",
+        element: (
+          <ProtectedRoute>
+            <MyBoardPage />
           </ProtectedRoute>
         ),
       },

@@ -4,7 +4,6 @@ import { useAuth } from "../context/AuthContext";
 export default function Header() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-  const API_URL = import.meta.env.VITE_API_URL;
 
   return (
     <header className="w-full border-b bg-white shadow-sm">
@@ -35,9 +34,7 @@ export default function Header() {
                 로그아웃
               </button>
               <button
-                onClick={() =>
-                  (window.location.href = `${API_URL}/member/update`)
-                }
+                onClick={() => navigate("/update-profile")}
                 className="px-3 py-1 rounded-md bg-blue-500 text-white hover:bg-blue-600"
               >
                 내 정보 수정
@@ -53,9 +50,7 @@ export default function Header() {
               </button>
 
               <button
-                onClick={() =>
-                  (window.location.href = `${API_URL}/member/save`)
-                }
+                onClick={() => navigate("/signup")}
                 className="px-3 py-1 rounded-md bg-blue-500 text-white hover:bg-blue-600"
               >
                 회원가입

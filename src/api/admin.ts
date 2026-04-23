@@ -12,3 +12,11 @@ export const deleteMember = async (id: number) => {
     withCredentials: true,
   });
 };
+
+export const changeRole = async (id: number, role: string) => {
+  return await client.patch(
+    `/api/admin/members/${id}/role`,
+    { role },
+    { withCredentials: true },
+  );
+};

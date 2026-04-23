@@ -40,12 +40,16 @@ function HomePage() {
 
             <div className="space-x-3">
               <button
-                onClick={() =>
-                  (window.location.href = `${API_URL}/board/myList`)
-                }
+                onClick={() => navigate("/my-boards")}
                 className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
               >
                 내 글 보기
+              </button>
+              <button
+                onClick={() => navigate("/update-profile")}
+                className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+              >
+                프로필 수정
               </button>
 
               {user.memberRole === "ROLE_ADMIN" && (
