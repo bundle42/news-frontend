@@ -4,7 +4,6 @@ import { useAuth } from "../context/AuthContext";
 function HomePage() {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
-  const API_URL = import.meta.env.VITE_API_URL;
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
