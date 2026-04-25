@@ -179,9 +179,10 @@ function BoardDetailPage() {
           </span>
         </div>
 
+        {/* 첨부 파일 */}
         {board.fileAttached === 1 && (
           <img
-            src={`${import.meta.env.VITE_API_URL}/upload/${board.storedFileName}`}
+            src={`/uploads/${board.storedFileName}`}
             className="max-w-full h-auto"
           />
         )}
