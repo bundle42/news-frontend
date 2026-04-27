@@ -3,7 +3,12 @@ import { useNavigate } from "react-router-dom";
 import client from "../api/client";
 import type { Board } from "../types/board";
 
-function BoardPage() {
+type Props = {
+  endpoint?: string;
+  title?: string;
+};
+
+function BoardPage({ endpoint = "/api/board", title = "게시판" }: Props) {
   const [boards, setBoards] = useState<Board[]>([]);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -36,7 +41,7 @@ function BoardPage() {
     setLoading(true);
 
     try {
-      const res = await client.get(`/api/board?page=${page}&size=20`);
+      const res = await client.get(`${endpoint}?page=${page}&size=20`);
 
       // Spring Page 구조 기준
       const data = res.data;
@@ -51,7 +56,11 @@ function BoardPage() {
   useEffect(() => {
     fetchBoards();
     window.scrollTo(0, 0);
-  }, [page]);
+  }, [page, endpoint]);
+
+  useEffect(() => {
+    setPage(0);
+  }, [endpoint]);
 
   // 로딩 UI
   if (loading) {
@@ -67,7 +76,7 @@ function BoardPage() {
       <div className="max-w-6xl mx-auto px-4">
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold">게시판</h2>
+          <h2 className="text-2xl font-bold">{title}</h2>
 
           <button
             className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"

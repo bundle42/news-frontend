@@ -18,6 +18,13 @@ export default function Navigation() {
         </button>
 
         <button
+          onClick={() => navigate("/board/human")}
+          className="hover:text-blue-600"
+        >
+          사용자 게시판
+        </button>
+
+        <button
           onClick={() => navigate("/predict")}
           className="hover:text-blue-600"
         >

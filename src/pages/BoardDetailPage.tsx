@@ -181,10 +181,7 @@ function BoardDetailPage() {
 
         {/* 첨부 파일 */}
         {board.fileAttached === 1 && (
-          <img
-            src={`/uploads/${board.storedFileName}`}
-            className="max-w-full h-auto"
-          />
+          <img src={board.storedFileName} className="max-w-full h-auto" />
         )}
 
         {/* 뒤로가기 */}

@@ -39,7 +39,7 @@ function HomePage() {
 
             <div className="space-x-3">
               <button
-                onClick={() => navigate("/my-boards")}
+                onClick={() => navigate("/board/my")}
                 className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
               >
                 내 글 보기

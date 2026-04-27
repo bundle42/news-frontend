@@ -11,7 +11,6 @@ import PredictPage from "./pages/PredictPage";
 import BoardWritePage from "./pages/BoardWritePage";
 import SignupPage from "./pages/SignupPage";
 import UpdateProfilePage from "./pages/UpdateProfilePage";
-import MyBoardPage from "./pages/MyBoardPage";
 import BoardUpdatePage from "./pages/BoardUpdatePage";
 
 const router = createBrowserRouter([
@@ -41,11 +40,17 @@ const router = createBrowserRouter([
       },
       {
         path: "board",
+        element: <BoardPage />,
+      },
+      {
+        path: "board/human",
         element: (
-          <ProtectedRoute>
-            <BoardPage />
-          </ProtectedRoute>
+          <BoardPage endpoint="/api/board/human" title="사용자 게시판" />
         ),
+      },
+      {
+        path: "board/my",
+        element: <BoardPage endpoint="/api/board/my" title="내 게시글" />,
       },
       {
         path: "board/write",
@@ -68,14 +73,6 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <BoardUpdatePage />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "my-boards",
-        element: (
-          <ProtectedRoute>
-            <MyBoardPage />
           </ProtectedRoute>
         ),
       },
