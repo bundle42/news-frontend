@@ -42,7 +42,7 @@ jobs:
           host: 13.125.227.226
           username: ec2-user
           key: ${{ secrets.EC2_KEY }}
-          source: "dist/dist/*"
+          source: "dist/"
           target: "/home/ec2-user/dist"
 
       # 3. nginx 배포
@@ -54,6 +54,6 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           script: |
             sudo rm -rf /usr/share/nginx/html/*
-            sudo cp -r /home/ec2-user/dist/* /usr/share/nginx/html/
+            sudo cp -r /home/ec2-user/dist/. /usr/share/nginx/html/
             sudo chmod -R 755 /usr/share/nginx/html
             sudo systemctl restart nginx
