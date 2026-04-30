@@ -5,8 +5,8 @@ export const login = async (email: string, password: string) => {
   return client.post(
     "/api/member/login",
     {
-      username: email,
-      password: password,
+      memberEmail: email,
+      memberPassword: password,
     },
     {
       withCredentials: true,

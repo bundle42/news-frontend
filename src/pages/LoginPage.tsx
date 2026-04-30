@@ -16,18 +16,36 @@ function LoginPage() {
       navigate("/board");
     } catch (e: any) {
       const status = e?.response?.status;
+      const message = e?.response?.data?.message;
 
+      // 서버 자체가 죽었거나 네트워크 문제
       if (!status) {
-        alert("서버가 응답하지 않습니다");
+        alert("서버에 연결할 수 없습니다");
         return;
       }
 
-      if (status === 401) {
-        alert("비밀번호가 틀렸습니다");
-      } else if (status === 404) {
-        alert("존재하지 않는 이메일입니다");
-      } else {
-        alert("로그인 실패");
+      // 백엔드 메시지가 있으면 무조건 우선 사용
+      if (message) {
+        alert(message);
+        return;
+      }
+
+      // fallback 처리
+      switch (status) {
+        case 401:
+          alert("비밀번호가 틀렸습니다");
+          break;
+
+        case 403:
+          alert("접근 권한이 없습니다");
+          break;
+
+        case 404:
+          alert("요청한 계정을 찾을 수 없습니다");
+          break;
+
+        default:
+          alert("로그인 실패");
       }
     }
   };
