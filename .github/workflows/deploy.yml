@@ -24,7 +24,8 @@ jobs:
           npm ci
           npm run build
 
-      - name: Create remote directory
+      # 1. EC2 dist 초기화
+      - name: Prepare EC2 directory
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: 13.125.227.226
@@ -34,15 +35,17 @@ jobs:
             rm -rf /home/ec2-user/dist
             mkdir -p /home/ec2-user/dist
 
+      # 2. dist 내용물만 전송
       - name: Copy dist to EC2
         uses: appleboy/scp-action@v0.1.7
         with:
           host: 13.125.227.226
           username: ec2-user
           key: ${{ secrets.EC2_KEY }}
-          source: "dist/"
+          source: "dist/*"
           target: "/home/ec2-user/dist"
 
+      # 3. nginx 배포
       - name: Deploy on EC2
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -51,6 +54,6 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           script: |
             sudo rm -rf /usr/share/nginx/html/*
-            sudo cp -r /home/ec2-user/dist/dist/* /usr/share/nginx/html/
+            sudo cp -r /home/ec2-user/dist/* /usr/share/nginx/html/
             sudo chmod -R 755 /usr/share/nginx/html
             sudo systemctl restart nginx
