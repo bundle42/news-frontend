@@ -31,8 +31,8 @@ jobs:
           username: ec2-user
           key: ${{ secrets.EC2_KEY }}
           script: |
+            rm -rf /home/ec2-user/dist
             mkdir -p /home/ec2-user/dist
-            rm -rf /home/ec2-user/dist/*
 
       - name: Copy dist to EC2
         uses: appleboy/scp-action@v0.1.7
