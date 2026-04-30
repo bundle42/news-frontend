@@ -51,6 +51,6 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           script: |
             sudo rm -rf /usr/share/nginx/html/*
-            sudo cp -r /home/ec2-user/dist/* /usr/share/nginx/html/
+            sudo cp -r /home/ec2-user/dist/dist/* /usr/share/nginx/html/
             sudo chmod -R 755 /usr/share/nginx/html
             sudo systemctl restart nginx
