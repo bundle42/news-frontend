@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -21,7 +21,7 @@ jobs:
 
       - name: Install & Build
         run: |
-          npm install
+          npm ci
           npm run build
 
       - name: Copy dist to EC2
@@ -30,7 +30,7 @@ jobs:
           host: 13.125.227.226
           username: ec2-user
           key: ${{ secrets.EC2_KEY }}
-          source: "dist/*"
+          source: "dist/"
           target: "/home/ec2-user/dist"
 
       - name: Deploy on EC2
@@ -40,5 +40,6 @@ jobs:
           username: ec2-user
           key: ${{ secrets.EC2_KEY }}
           script: |
+            sudo rm -rf /usr/share/nginx/html/*
             sudo cp -r /home/ec2-user/dist/* /usr/share/nginx/html/
             sudo systemctl restart nginx
