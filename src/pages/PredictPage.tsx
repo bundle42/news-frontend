@@ -26,6 +26,12 @@ function PredictPage() {
 
   const result = prediction?.lstm_result;
   const next = result?.next_prediction;
+  const history = result?.historical_predictions || [];
+
+  // 🔥 방향 정확도 계산
+  const total = history.length;
+  const correct = history.filter((h: any) => h.direction_match).length;
+  const accuracy = total > 0 ? ((correct / total) * 100).toFixed(1) : null;
 
   return (
     <div className="min-h-screen bg-gray-100 py-10">
@@ -120,6 +126,20 @@ function PredictPage() {
               <div className="bg-white p-4 rounded-2xl shadow text-center">
                 <h4 className="text-gray-500 text-sm">방향</h4>
                 <p className="text-xl font-bold">{next.direction}</p>
+                {accuracy && (
+                  <p className="text-sm text-gray-400 mt-1">
+                    신뢰도: {accuracy}%
+                  </p>
+                )}
+              </div>
+            </div>
+
+            {/* 모델 요약 (🔥 추가) */}
+            <div className="bg-white p-6 rounded-2xl shadow">
+              <h3 className="font-semibold mb-3">📊 모델 요약</h3>
+              <div className="text-gray-600 space-y-1">
+                <p>최근 방향 정확도: {accuracy}%</p>
+                <p>총 평가 데이터: {total}개</p>
               </div>
             </div>
 
@@ -165,24 +185,22 @@ function PredictPage() {
                 </thead>
 
                 <tbody>
-                  {result.historical_predictions.map(
-                    (item: any, idx: number) => (
-                      <tr key={idx} className="border-t hover:bg-gray-50">
-                        <td className="p-2">{item.date}</td>
-                        <td className="p-2">
-                          {item.actual_target_close.toLocaleString()}
-                        </td>
-                        <td className="p-2">
-                          {item.predicted_target_close.toLocaleString()}
-                        </td>
-                        <td className="p-2">{item.actual_direction}</td>
-                        <td className="p-2">{item.predicted_direction}</td>
-                        <td className="p-2">
-                          {item.direction_match ? "✅" : "❌"}
-                        </td>
-                      </tr>
-                    ),
-                  )}
+                  {history.map((item: any, idx: number) => (
+                    <tr key={idx} className="border-t hover:bg-gray-50">
+                      <td className="p-2">{item.date}</td>
+                      <td className="p-2">
+                        {item.actual_target_close.toLocaleString()}
+                      </td>
+                      <td className="p-2">
+                        {item.predicted_target_close.toLocaleString()}
+                      </td>
+                      <td className="p-2">{item.actual_direction}</td>
+                      <td className="p-2">{item.predicted_direction}</td>
+                      <td className="p-2">
+                        {item.direction_match ? "✅" : "❌"}
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
