@@ -40,17 +40,27 @@ const router = createBrowserRouter([
       },
       {
         path: "board",
-        element: <BoardPage />,
+        element: (
+          <ProtectedRoute>
+            <BoardPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "board/human",
         element: (
-          <BoardPage endpoint="/api/board/human" title="사용자 게시판" />
+          <ProtectedRoute>
+            <BoardPage endpoint="/api/board/human" title="사용자 게시판" />
+          </ProtectedRoute>
         ),
       },
       {
         path: "board/my",
-        element: <BoardPage endpoint="/api/board/my" title="내 게시글" />,
+        element: (
+          <ProtectedRoute>
+            <BoardPage endpoint="/api/board/my" title="내 게시글" />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "board/write",
