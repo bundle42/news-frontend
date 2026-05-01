@@ -24,22 +24,6 @@ function PredictPage() {
       });
   };
 
-  const handleTrain = () => {
-    if (!selectedStock) return;
-
-    setLoading(true);
-    setPrediction(null);
-
-    client
-      .post(`/api/train?stockName=${encodeURIComponent(selectedStock)}`)
-      .then(() => {
-        alert("모델 학습 완료");
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
-
   const result = prediction?.lstm_result;
   const next = result?.next_prediction;
 
@@ -73,23 +57,13 @@ function PredictPage() {
               📈 {selectedStock} 주가 예측
             </h3>
 
-            <div className="flex gap-2">
-              <button
-                onClick={handleTrain}
-                disabled={loading}
-                className="px-3 py-2 bg-gray-200 text-gray-700 rounded-lg transition disabled:bg-gray-300 disabled:hover:bg-gray-300"
-              >
-                모델 업데이트
-              </button>
-
-              <button
-                onClick={handlePredict}
-                disabled={loading}
-                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition disabled:bg-gray-400"
-              >
-                {loading ? "작업 중..." : "예측 실행"}
-              </button>
-            </div>
+            <button
+              onClick={handlePredict}
+              disabled={loading}
+              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition disabled:bg-gray-400"
+            >
+              {loading ? "예측 중..." : "예측하기"}
+            </button>
           </div>
 
           {!prediction && !loading && (
@@ -98,7 +72,11 @@ function PredictPage() {
             </p>
           )}
 
-          {loading && <p className="text-gray-400 mt-4">🔄 로딩 중입니다...</p>}
+          {loading && (
+            <p className="text-gray-400 mt-4">
+              🔄 데이터를 불러오는 중입니다...
+            </p>
+          )}
         </div>
 
         {/* 결과 */}
